@@ -271,7 +271,7 @@ body {
 .eight svg:nth-child(9) { fill: #9a90da; left: 87vw; top: 94vh; }
 
 .wish-hbd {
-  font-size: 2em;
+  font-size: 1.5rem;
   margin: 0;
   text-transform: uppercase;
   color: #fff;
