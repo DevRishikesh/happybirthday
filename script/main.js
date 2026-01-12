@@ -41,11 +41,14 @@ startScreen.addEventListener("click", startExperience);
 // ==============================================
 const animationTimeline = () => {
     // split chars that needs to be animated individually
-    const hbd = document.getElementsByClassName("wish-hbd")[0];
+     // split chars that needs to be animated individually
+    const hbdElements = document.getElementsByClassName("wish-hbd");
 
-    hbd.innerHTML = `<span>${hbd.innerHTML
-        .split("")
-        .join("</span><span>")}</span>`;
+    for (let i = 0; i < hbdElements.length; i++) {
+      hbdElements[i].innerHTML = `<span>${hbdElements[i].innerHTML
+          .split("")
+          .join("</span><span>")}</span>`;
+    }
 
     const ideaTextTrans = {
         opacity: 0,
