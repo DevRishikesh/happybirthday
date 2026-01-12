@@ -1,26 +1,31 @@
-// ==============================================
-//  AUDIO HANDLING (No Popup, Automatic)
-// ==============================================
-window.addEventListener('load', () => {
-    const song = document.querySelector('.song');
-    
-    // Try to play immediately
-    const playPromise = song.play();
+const song = document.querySelector(".song");
+const startScreen = document.getElementById("audio-start");
 
-    // If browser blocks autoplay, wait for first interaction
-    if (playPromise !== undefined) {
-        playPromise.catch(error => {
-            // Auto-play was prevented.
-            // Add a one-time listener to the body to play on first click/touch
-            document.body.addEventListener('click', function() {
-                song.play();
-            }, { once: true });
-        });
-    }
+function startExperience() {
+  song.currentTime = 0;
+  song.play().then(() => {
+    startScreen.style.display = "none";
+    animationTimeline(); // start animation ONLY after audio starts
+  }).catch(err => {
+    console.log("Audio blocked:", err);
+  });
+}
 
-    // Start Animation Immediately
-    animationTimeline();
+/* Desktop autoplay */
+window.addEventListener("load", () => {
+  if (window.innerWidth > 768) {
+    song.play().then(() => {
+      animationTimeline();
+    }).catch(() => {
+      // fallback if blocked
+      startScreen.style.display = "flex";
+    });
+  }
 });
+
+/* Mobile: user tap */
+startScreen.addEventListener("click", startExperience);
+
 
 // ==============================================
 //  ANIMATION TIMELINE
