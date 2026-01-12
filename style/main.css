@@ -324,3 +324,32 @@ body {
   .wish h5 { font-size: 1.4rem; }
   .nine p { font-size: 1.5rem; }
 }
+
+
+
+/* Mobile Audio Start Overlay */
+#audio-start {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(-45deg, #ff9a9e, #fad0c4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  font-family: 'Poppins', sans-serif;
+}
+
+#audio-start span {
+  font-size: 1.5rem;
+  color: white;
+  background: rgba(0,0,0,0.2);
+  padding: 15px 30px;
+  border-radius: 30px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
