@@ -1,11 +1,17 @@
 const song = document.querySelector(".song");
 const startScreen = document.getElementById("audio-start");
 
+let animationStarted = false;
+let tl; // timeline reference
+
 function startExperience() {
+  if (animationStarted) return;
+
   song.currentTime = 0;
   song.play().then(() => {
     startScreen.style.display = "none";
-    animationTimeline(); // start animation ONLY after audio starts
+    animationStarted = true;
+    animationTimeline();
   }).catch(err => {
     console.log("Audio blocked:", err);
   });
@@ -14,10 +20,12 @@ function startExperience() {
 /* Desktop autoplay */
 window.addEventListener("load", () => {
   if (window.innerWidth > 768) {
+    startScreen.style.display = "none";
+
     song.play().then(() => {
+      animationStarted = true;
       animationTimeline();
     }).catch(() => {
-      // fallback if blocked
       startScreen.style.display = "flex";
     });
   }
@@ -25,6 +33,7 @@ window.addEventListener("load", () => {
 
 /* Mobile: user tap */
 startScreen.addEventListener("click", startExperience);
+
 
 
 // ==============================================
@@ -53,7 +62,7 @@ const animationTimeline = () => {
     }
 
     // timeline
-    const tl = new TimelineMax();
+    tl = new TimelineMax();
 
     tl.to(".container", 0.6, {
         visibility: "visible"
@@ -296,7 +305,10 @@ const animationTimeline = () => {
 
     // Restart Animation on click
     const replyBtn = document.getElementById("replay");
-    replyBtn.addEventListener("click", () => {
-        tl.restart();
-    });
+replyBtn.addEventListener("click", () => {
+  song.currentTime = 0;
+  song.play();
+  tl.restart();
+});
+
 }
